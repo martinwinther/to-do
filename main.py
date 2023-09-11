@@ -1,10 +1,20 @@
-user_prompt = "Enter a todo: "
-
 todos = []
 
 while True:
-    todo = input(user_prompt)
-    todos.append(todo)
+    user_action = input("Type add, show or exit: ")
+
+    match user_action.strip():
+        case 'add':
+            todo = input("Enter a todo: ")
+            todos.append(todo)
+        case 'show' | 'snow':
+            for item in todos:
+                print(item)
+        case 'exit':
+            break
+        case _:
+            print("Please enter a correct command")
+print("Bye!")
 
 
 
