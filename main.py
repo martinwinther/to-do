@@ -23,10 +23,15 @@ while True:
             file.close()
 
             for index, item in enumerate(todos):
+                item = item.strip("\n")
                 print(f"{index+1}. {item}")
 
         case 'edit':
+            file = open('todos.txt', 'r')
+            todos = file.readlines()
+            file.close()
             for index, item in enumerate(todos):
+                item = item.strip("\n")
                 print(f"{index+1}. {item}")
 
             number = int(input("Which number do you want to edit? "))
@@ -37,7 +42,11 @@ while True:
             print("Edit saved!")
 
         case 'complete':
+            file = open('todos.txt', 'r')
+            todos = file.readlines()
+            file.close()
             for index, item in enumerate(todos):
+                item = item.strip("\n")
                 print(f"{index + 1}. {item}")
             number = int(input("Which number do you want to complete? "))
             todos.pop(number - 1)
