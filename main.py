@@ -7,29 +7,26 @@ while True:
         case 'add':
             todo = input("Enter a todo: ") + "\n"
 
-            file = open('todos.txt', 'r')  # opens and reads the existing txt
-            todos = file.readlines()  # adds the existing txt to a list called todos
-            file.close()  # closes the file
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
 
-            todos.append(todo)  # appends the new to-do to the list
+            todos.append(todo)
 
-            file = open('todos.txt', 'w')  # opens the todos in write mode
-            file.writelines(todos)  # overwrites the file with the new txt
-            file.close()
+            with open('todos.txt', 'w') as file:
+                file.writelines(todos)
 
-        case 'show' | 'snow':
-            file = open('todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+        case 'show' | 'sow':
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
 
             for index, item in enumerate(todos):
                 item = item.strip("\n")
                 print(f"{index+1}. {item}")
 
         case 'edit':
-            file = open('todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
+
             for index, item in enumerate(todos):
                 item = item.strip("\n")
                 print(f"{index+1}. {item}")
@@ -37,20 +34,29 @@ while True:
             number = int(input("Which number do you want to edit? "))
             existing_todo = todos[number - 1]
             print("Number " + str(number) + " is " + existing_todo)
+
             new_todo = input("Edit it to: ")
-            todos[number - 1] = new_todo
+            todos[number-1] = new_todo + '\n'
+            with open('todos.txt', 'w') as file:
+                file.writelines(todos)
+
             print("Edit saved!")
 
         case 'complete':
-            file = open('todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
+
             for index, item in enumerate(todos):
                 item = item.strip("\n")
                 print(f"{index + 1}. {item}")
+
             number = int(input("Which number do you want to complete? "))
+            todo_to_remove = todos[number - 1].strip('\n')
             todos.pop(number - 1)
-            print("Good job!")
+            with open('todos.txt', 'w') as file:
+                file.writelines(todos)
+
+            print(f"Good job! \n{todo_to_remove} was removed from the list.")
 
         case 'exit':
             break
@@ -60,8 +66,13 @@ while True:
 
 print("Here are your tasks: ")
 
-for item in todos:
-    print(str(todos.index(item) + 1) + ". " + item)
+
+with open('todos.txt', 'r') as file:
+    todos = file.readlines()
+
+for index, item in enumerate(todos):
+    item = item.strip("\n")
+    print(f"{index + 1}. {item}")
 
 print("Bye!")
 
