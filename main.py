@@ -1,3 +1,9 @@
+def get_todos():
+    with open('todos.txt', 'r') as file_local:
+        todos_local = file_local.readlines()
+    return todos_local
+
+
 commands = "add, show, edit, complete or exit"
 
 while True:
@@ -7,8 +13,7 @@ while True:
     if user_action.startswith('add'):
         todo = user_action[4:]  # adds the input after the character with index 4
 
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = get_todos()
             
         # Check if the last item has a newline at the end, if not, add one
         if todos and not todos[-1].endswith('\n'):
@@ -20,8 +25,8 @@ while True:
             file.writelines(todos)
 
     elif user_action.startswith('show'):
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
+
+        todos = get_todos()
 
         for index, item in enumerate(todos):
             item = item.strip("\n")
@@ -31,8 +36,7 @@ while True:
         try:
             number = int(user_action[5:])
 
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
 
             # Check if the number is within the valid range
             if 1 <= number <= len(todos):
@@ -57,8 +61,7 @@ while True:
 
     elif user_action.startswith('complete'):
         try:
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
 
             number = int(user_action[9:])
             todo_to_remove = todos[number - 1].strip('\n')
@@ -80,8 +83,7 @@ while True:
 print("Here are your tasks: ")
 
 
-with open('todos.txt', 'r') as file:
-    todos = file.readlines()
+todos = get_todos()
 
 for index, item in enumerate(todos):
     item = item.strip("\n")
