@@ -1,6 +1,7 @@
 parachute
 nintendo
 moon
-horse
+horsing
 take out the trash
-fish
+wow
+print
