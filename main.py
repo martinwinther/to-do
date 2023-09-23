@@ -1,4 +1,5 @@
 import functions
+import time
 
 COMMANDS = "add, show, edit, complete or exit"
 
