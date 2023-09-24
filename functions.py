@@ -28,3 +28,7 @@ def print_todos(todos_arg):
     for index, item in enumerate(todos_arg):
         item = item.strip("\n")
         print(f"{index + 1}. {item}")
+
+
+if __name__ == "__main__":
+    print(get_todos())
